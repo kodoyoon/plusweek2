@@ -1,9 +1,11 @@
 package org.example.plus2.todo.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.plus2.todo.controller.exception.TodoNotFoundException;
 import org.example.plus2.todo.dto.TodoAddRequestDto;
 import org.example.plus2.todo.dto.TodoResponseDto;
+import org.example.plus2.todo.dto.TodoUpdateRequestDto;
 import org.example.plus2.todo.entity.TodoEntity;
 import org.example.plus2.todo.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,12 @@ public class TodoService {
         .collect(Collectors.toList());
   }
 
+  @Transactional
+  public TodoResponseDto updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
+    TodoEntity todoEntity = getTodoEntity(todoId);
+    todoEntity.update(requestDto);
+    return new TodoResponseDto(todoEntity);
+  }
 
 
   private TodoEntity getTodoEntity(Long todoId) {

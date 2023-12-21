@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.plus2.todo.dto.TodoAddRequestDto;
+import org.example.plus2.todo.dto.TodoUpdateRequestDto;
 
 import java.time.LocalDateTime;
 
@@ -37,5 +38,11 @@ public class TodoEntity extends TimeEntity {
     this.content = requestDto.getContent();
 
 
+  }
+
+  public void update(TodoUpdateRequestDto requestDto) {
+    this.title = requestDto.getTitle();
+    this.author = requestDto.getAuthor();
+    this.content = requestDto.getContent();
   }
 }

@@ -3,6 +3,7 @@ package org.example.plus2.todo.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.plus2.todo.dto.TodoAddRequestDto;
 import org.example.plus2.todo.dto.TodoResponseDto;
+import org.example.plus2.todo.dto.TodoUpdateRequestDto;
 import org.example.plus2.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,15 @@ public class TodoController {
     List<TodoResponseDto> responseDto = todoService.getTodos();
     return ResponseEntity.ok(responseDto);
   }
+
+@PatchMapping("/{todoId}") // 선택한할일카드목록수정
+  public ResponseEntity<TodoResponseDto> updateTodo(
+      @PathVariable Long todoId,
+      @RequestBody TodoUpdateRequestDto requestDto
+){
+    TodoResponseDto responseDto = todoService.updateTodo(todoId,requestDto);
+    return ResponseEntity.ok(responseDto);
+}
 
 
 }
