@@ -1,9 +1,12 @@
 package org.example.plus2.todo.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.example.plus2.todo.controller.exception.TodoNotFoundException;
 import org.example.plus2.todo.dto.TodoAddRequestDto;
 import org.example.plus2.todo.dto.TodoResponseDto;
 import org.example.plus2.todo.dto.TodoUpdateRequestDto;
+import org.example.plus2.todo.dto.exception.ErrorResponseDto;
 import org.example.plus2.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +51,14 @@ public class TodoController {
     return ResponseEntity.ok(responseDto);
 }
 
+@ExceptionHandler(TodoNotFoundException.class)
+  public ResponseEntity<ErrorResponseDto> todoNotFoundExceptionHandler(TodoNotFoundException ex) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+        new ErrorResponseDto(
+            HttpStatus.NOT_FOUND.value(),
+                ex.getMessage()
+        )
+    );
+}
 
 }
