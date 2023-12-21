@@ -10,31 +10,32 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "todo")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TodoEntity {
+public class TodoEntity extends TimeEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-  @Column
+  @Column(nullable = false)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String title;
 
-  @Column
+  @Column(nullable = false)
   private String author;
 
-  @Column
+  @Column(nullable = false)
   private String content;
 
-  @Column
-  private LocalDateTime createDate;
+
 
   public TodoEntity(TodoAddRequestDto requestDto) {
     this.title = requestDto.getTitle();
     this.author = requestDto.getAuthor();
     this.content = requestDto.getContent();
-    this.createDate = LocalDateTime.now();
+
 
   }
 }
