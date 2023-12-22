@@ -28,15 +28,15 @@ public class TodoController {
     return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
   }
 
-  @GetMapping("/{todoId}") // 전체조회
+  @GetMapping("/{todoId}") // 목록조회
   public ResponseEntity<TodoResponseDto> getTodo(
-      @PathVariable Long todoId
+      @PathVariable(name = "todoId") Long todoId
   ){
     TodoResponseDto responseDto = todoService.getTodo(todoId);
     return ResponseEntity.ok(responseDto);
   }
 
-  @GetMapping // 목록조회
+  @GetMapping // 전체조회
   public ResponseEntity<List<TodoResponseDto>> getTodos() {
     List<TodoResponseDto> responseDto = todoService.getTodos();
     return ResponseEntity.ok(responseDto);
@@ -44,7 +44,7 @@ public class TodoController {
 
 @PatchMapping("/{todoId}") // 선택한할일카드목록수정
   public ResponseEntity<TodoResponseDto> updateTodo(
-      @PathVariable Long todoId,
+      @PathVariable(name = "todoId") Long todoId,
       @RequestBody TodoUpdateRequestDto requestDto
 ){
     TodoResponseDto responseDto = todoService.updateTodo(todoId,requestDto);

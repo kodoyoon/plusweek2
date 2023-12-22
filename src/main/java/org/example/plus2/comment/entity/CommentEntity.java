@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.plus2.comment.dto.CommentAddRequestDto;
+import org.example.plus2.comment.dto.CommentUpdateRequestDto;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,10 @@ public class CommentEntity {
   private LocalDateTime createDate;
 
  public CommentEntity(CommentAddRequestDto requestDto) {
+   this.text = requestDto.getText();
+   this.createDate = LocalDateTime.now();
+ }
+ public void update(CommentUpdateRequestDto requestDto) {
    this.text = requestDto.getText();
    this.createDate = LocalDateTime.now();
  }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 
 public record CommentResponseDto (
+Long id,
     String text,
     LocalDateTime createDate
 
@@ -15,6 +16,7 @@ public record CommentResponseDto (
 
   public CommentResponseDto(CommentEntity saveComment) {
     this(
+        saveComment.getId(),
         saveComment.getText(),
         saveComment.getCreateDate()
 

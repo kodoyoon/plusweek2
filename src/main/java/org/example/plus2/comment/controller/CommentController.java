@@ -3,14 +3,12 @@ package org.example.plus2.comment.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.plus2.comment.dto.CommentAddRequestDto;
 import org.example.plus2.comment.dto.CommentResponseDto;
+import org.example.plus2.comment.dto.CommentUpdateRequestDto;
 import org.example.plus2.comment.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/comments")
 @RestController
@@ -23,5 +21,15 @@ public class CommentController {
     @RequestBody CommentAddRequestDto requestDto
       ){
           CommentResponseDto responseDto = commentService.addComment(requestDto);
-          return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);  }
+          return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+  }
+
+  @PatchMapping("/{commentId}") //댓글 수정
+  public ResponseEntity<CommentResponseDto> updateComment(
+      @PathVariable(name = "commentId") Long commentId,
+      @RequestBody CommentUpdateRequestDto requestDto
+  ){
+    CommentResponseDto responseDto = commentService.updateComment(commentId, requestDto);
+    return ResponseEntity.ok(responseDto);  }
+
 }
