@@ -30,6 +30,10 @@ public class CommentService {
     return new CommentResponseDto(commentEntity);
   }
 
+  public void deleteComment(Long commentId) {
+    CommentEntity commentEntity = getCommentEntity(commentId);
+    commentRepository.delete(commentEntity);
+  }
   private CommentEntity getCommentEntity(Long commentId) {
     return commentRepository.findById(commentId)
         .orElseThrow(() -> new CommentNotFouneException("해당 댓글을 찾을 수 없습니다."));
